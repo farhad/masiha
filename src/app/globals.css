@@ -1,8 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f2e8;
+  --foreground: #241a12;
+  --muted-foreground: #735f4d;
+  --surface: #fffaf1;
+  --surface-strong: #efe0ca;
+  --surface-raised: #f7ead7;
+  --border: #d8c3a5;
+  --ring: #a56b2a;
+  --ember: #8e3f22;
+  --ember-strong: #733119;
+  --ember-foreground: #fff8eb;
+  --gold: #b8872d;
+  --olive: #526039;
+  --wine: #6f2631;
+  --teal: #25605a;
+  --accent-soft: #ead7ad;
+  --accent-foreground: #5b3d14;
+  --shadow-warm: rgba(70, 41, 22, 0.18);
 }
 
 @theme inline {
@@ -12,15 +28,71 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #15110d;
+  --foreground: #f4ead7;
+  --muted-foreground: #c7b393;
+  --surface: #201912;
+  --surface-strong: #2b2118;
+  --surface-raised: #38291d;
+  --border: #574331;
+  --ring: #d0a24d;
+  --ember: #bc6537;
+  --ember-strong: #d47a45;
+  --ember-foreground: #1b100b;
+  --gold: #d6a94d;
+  --olive: #a8ad72;
+  --wine: #bd6571;
+  --teal: #70aaa3;
+  --accent-soft: #3d2f1f;
+  --accent-foreground: #f3d790;
+  --shadow-warm: rgba(0, 0, 0, 0.38);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--foreground);
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.scripture {
+  direction: rtl;
+  font-size: 1.05rem;
+  line-height: 2;
+}
+
+.illumination {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(184, 135, 45, 0.22), transparent 26%),
+    radial-gradient(circle at 88% 8%, rgba(82, 96, 57, 0.18), transparent 28%),
+    linear-gradient(135deg, rgba(255, 250, 241, 0.78), rgba(239, 224, 202, 0.44));
+}
+
+.dark .illumination {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(214, 169, 77, 0.18), transparent 26%),
+    radial-gradient(circle at 88% 8%, rgba(112, 170, 163, 0.12), transparent 28%),
+    linear-gradient(135deg, rgba(32, 25, 18, 0.92), rgba(43, 33, 24, 0.86));
 }
