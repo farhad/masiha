@@ -11,6 +11,12 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up --build -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f app",
+    "docker:migrate": "docker compose run --rm migrate",
+    "deploy:local": "docker compose up --build -d",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev"
   },

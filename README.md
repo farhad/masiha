@@ -28,7 +28,7 @@ The app currently ships with local seed content in `src/lib/content.ts` so the p
 Expected environment variables:
 
 ```bash
-DATABASE_URL=mysql://user:password@127.0.0.1:3306/masiha
+DATABASE_URL=mysql://user:password@127.0.0.1:3307/masiha
 ```
 
 Useful commands:
@@ -38,3 +38,25 @@ pnpm prisma generate
 pnpm prisma migrate dev --name init
 pnpm test
 ```
+
+## Docker Local Deployment
+
+Use Docker after feature work to verify the production app and MySQL schema together:
+
+```bash
+pnpm deploy:local
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+Useful Docker commands:
+
+```bash
+pnpm docker:build
+pnpm docker:up
+pnpm docker:logs
+pnpm docker:migrate
+pnpm docker:down
+```
+
+`docker-compose.yml` starts MySQL, runs `prisma migrate deploy`, then starts the production Next.js app.
