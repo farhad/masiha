@@ -145,7 +145,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <header className="sticky top-0 z-20 border-b border-[var(--border)] bg-[var(--background)]/94 backdrop-blur">
+      <header className="sticky top-0 z-20 bg-[var(--background)]/94 backdrop-blur">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
           <button
             className="flex shrink-0 items-center gap-3 text-left"
@@ -200,7 +200,7 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="illumination border-b border-[var(--border)]">
+      <div className="illumination">
         <section className="mx-auto grid w-full max-w-7xl gap-8 px-4 pb-8 pt-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div className="space-y-6">
             <Badge>First version PWA</Badge>
