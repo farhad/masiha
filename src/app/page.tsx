@@ -203,7 +203,6 @@ export default function Home() {
       <div className="illumination">
         <section className="mx-auto grid w-full max-w-7xl gap-8 px-4 pb-8 pt-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div className="space-y-6">
-            <Badge>First version PWA</Badge>
             <div className="space-y-4">
               <h1 className="font-display max-w-3xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
                 A warm daily home for Scripture, prayer, and Christian growth.
