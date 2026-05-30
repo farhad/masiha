@@ -5,8 +5,8 @@ Masiha is a mobile-first Next.js PWA prototype for Persian-centered Scripture re
 ## Run Locally
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
@@ -21,16 +21,20 @@ Open [http://localhost:3000](http://localhost:3000).
 - Bible in One Year reading plan with persisted progress.
 - Warm custom day/night themes using shadcn-style local components.
 
-## MySQL
+## Database
 
-The app currently ships with local seed content in `src/lib/content.ts` so the prototype runs immediately. A MySQL-ready schema is available at `database/schema.sql`, and `src/lib/db.ts` provides a `mysql2` connection helper for moving content and progress into the database.
+The app currently ships with local seed content in `src/lib/content.ts` so the prototype runs immediately. Prisma is configured for MySQL in `prisma/schema.prisma`, and `src/lib/db.ts` exposes the Prisma client plus shared content queries.
 
 Expected environment variables:
 
 ```bash
-MYSQL_HOST=127.0.0.1
-MYSQL_PORT=3306
-MYSQL_USER=root
-MYSQL_PASSWORD=
-MYSQL_DATABASE=masiha
+DATABASE_URL=mysql://user:password@127.0.0.1:3306/masiha
+```
+
+Useful commands:
+
+```bash
+pnpm prisma generate
+pnpm prisma migrate dev --name init
+pnpm test
 ```

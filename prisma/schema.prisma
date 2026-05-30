@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum UserPath {
+  seeker
+  growing
+}
+
+enum ContentKind {
+  bible_passage
+  journey_lesson
+  study_theme_day
+  daily_liturgy
+  year_plan_day
+}
+
+enum ContentStatus {
+  draft
+  published
+  archived
+}
+
+model User {
+  id          BigInt         @id @default(autoincrement()) @db.UnsignedBigInt
+  email       String?        @unique @db.VarChar(255)
+  displayName String?        @map("display_name") @db.VarChar(120)
+  path        UserPath       @default(seeker)
+  createdAt   DateTime       @default(now()) @map("created_at")
+  bookmarks   UserBookmark[]
+  progress    UserProgress[]
+
+  @@map("users")
+}
+
+model ContentItem {
+  id        BigInt         @id @default(autoincrement()) @db.UnsignedBigInt
+  slug      String         @unique @db.VarChar(160)
+  kind      ContentKind
+  title     String         @db.VarChar(220)
+  body      String         @db.Text
+  metadata  Json
+  status    ContentStatus  @default(draft)
+  sortOrder Int            @default(0) @map("sort_order")
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+  bookmarks UserBookmark[]
+  progress  UserProgress[]
+
+  @@index([kind, status, sortOrder], map: "content_kind_order")
+  @@map("content_items")
+}
+
+model UserBookmark {
+  id            BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
+  userId        BigInt      @map("user_id") @db.UnsignedBigInt
+  contentItemId BigInt      @map("content_item_id") @db.UnsignedBigInt
+  note          String?     @db.Text
+  createdAt     DateTime    @default(now()) @map("created_at")
+  contentItem   ContentItem @relation(fields: [contentItemId], references: [id], onDelete: Cascade)
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, contentItemId], map: "unique_user_bookmark")
+  @@map("user_bookmarks")
+}
+
+model UserProgress {
+  id            BigInt       @id @default(autoincrement()) @db.UnsignedBigInt
+  userId        BigInt       @map("user_id") @db.UnsignedBigInt
+  trackSlug     String       @map("track_slug") @db.VarChar(160)
+  contentItemId BigInt?      @map("content_item_id") @db.UnsignedBigInt
+  completedAt   DateTime?    @map("completed_at")
+  answer        String?      @db.VarChar(255)
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+  contentItem   ContentItem? @relation(fields: [contentItemId], references: [id], onDelete: SetNull)
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, trackSlug, contentItemId], map: "unique_user_track_content")
+  @@map("user_progress")
+}
