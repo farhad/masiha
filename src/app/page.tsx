@@ -42,7 +42,6 @@ type Section =
   | "year";
 
 const navItems: { id: Section; label: string; icon: React.ElementType }[] = [
-  { id: "home", label: "Home", icon: Flame },
   { id: "bible", label: "Bible", icon: BookOpen },
   { id: "salvation", label: "Story", icon: Sprout },
   { id: "journeys", label: "Journeys", icon: Heart },
@@ -146,10 +145,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <div className="illumination border-b border-[var(--border)]">
-        <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
+      <header className="sticky top-0 z-20 border-b border-[var(--border)] bg-[var(--background)]/94 backdrop-blur">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
           <button
-            className="flex items-center gap-3 text-left"
+            className="flex shrink-0 items-center gap-3 text-left"
             onClick={() => setSection("home")}
           >
             <span className="grid h-11 w-11 place-items-center rounded-md bg-[var(--ember)] text-[var(--ember-foreground)] shadow-[0_12px_28px_var(--shadow-warm)]">
@@ -164,18 +163,44 @@ export default function Home() {
               </span>
             </span>
           </button>
-          <Button
-            size="icon"
-            variant="outline"
-            aria-label="Toggle theme"
-            onClick={() =>
-              setTheme(resolvedTheme === "dark" ? "light" : "dark")
-            }
-          >
-            {resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </Button>
-        </header>
 
+          <div className="flex min-w-0 items-center gap-3">
+            <nav className="flex min-w-0 flex-1 gap-2 overflow-x-auto">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setSection(item.id)}
+                  className={cn(
+                    "inline-flex h-10 shrink-0 items-center gap-2 rounded-md px-3 text-sm font-semibold text-[var(--muted-foreground)] transition",
+                    section === item.id
+                      ? "bg-[var(--surface-strong)] text-[var(--foreground)]"
+                      : "hover:bg-[var(--surface-strong)] hover:text-[var(--foreground)]",
+                  )}
+                >
+                  <item.icon size={16} />
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+            <Button
+              size="icon"
+              variant="outline"
+              aria-label="Toggle theme"
+              onClick={() =>
+                setTheme(resolvedTheme === "dark" ? "light" : "dark")
+              }
+            >
+              {resolvedTheme === "dark" ? (
+                <Sun size={18} />
+              ) : (
+                <Moon size={18} />
+              )}
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      <div className="illumination border-b border-[var(--border)]">
         <section className="mx-auto grid w-full max-w-7xl gap-8 px-4 pb-8 pt-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div className="space-y-6">
             <Badge>First version PWA</Badge>
@@ -227,26 +252,6 @@ export default function Home() {
           </Card>
         </section>
       </div>
-
-      <nav className="sticky top-0 z-20 border-b border-[var(--border)] bg-[var(--background)]/92 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setSection(item.id)}
-              className={cn(
-                "inline-flex h-10 shrink-0 items-center gap-2 rounded-md px-3 text-sm font-semibold text-[var(--muted-foreground)] transition",
-                section === item.id
-                  ? "bg-[var(--surface-strong)] text-[var(--foreground)]"
-                  : "hover:bg-[var(--surface-strong)] hover:text-[var(--foreground)]",
-              )}
-            >
-              <item.icon size={16} />
-              {item.label}
-            </button>
-          ))}
-        </div>
-      </nav>
 
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[280px_1fr]">
         <aside className="space-y-4">

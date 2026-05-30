@@ -84,15 +84,9 @@ a {
 }
 
 .illumination {
-  background:
-    radial-gradient(circle at 8% 12%, rgba(184, 135, 45, 0.22), transparent 26%),
-    radial-gradient(circle at 88% 8%, rgba(82, 96, 57, 0.18), transparent 28%),
-    linear-gradient(135deg, rgba(255, 250, 241, 0.78), rgba(239, 224, 202, 0.44));
+  background: var(--background);
 }
 
 .dark .illumination {
-  background:
-    radial-gradient(circle at 8% 12%, rgba(214, 169, 77, 0.18), transparent 26%),
-    radial-gradient(circle at 88% 8%, rgba(112, 170, 163, 0.12), transparent 28%),
-    linear-gradient(135deg, rgba(32, 25, 18, 0.92), rgba(43, 33, 24, 0.86));
+  background: var(--background);
 }
